@@ -41,6 +41,6 @@ runc: test
 	@gcovr --exclude */tests.c --exclude-unreachable-branches --sort-percentage --print-summary
 
 norm:
-	@ruby normono.rb
+	@./csc.sh exercises . 
 
 .PHONY: all clean fclean re test run runc norm
