@@ -1,6 +1,8 @@
 /*
-** EPITECH POOL CHALLENGE, 2023
-** putchar
+** EPITECH PROJECT, 2021
+** some name
+** File description:
+** some desc
 */
 
 /* ALLOWED FUNCTIONS: write */

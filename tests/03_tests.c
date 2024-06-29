@@ -8,7 +8,7 @@
 
 int my_put_nbr(int nb);
 
-void redirect_all_stdout(void)
+static void redirect_all_stdout(void)
 {
     cr_redirect_stdout();
     cr_redirect_stderr();

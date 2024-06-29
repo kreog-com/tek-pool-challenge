@@ -3,44 +3,46 @@
 ## general makefile
 ##
 
-SRC	=	$(shell find . -name "*.c" ! -path "*test*.c")
+SRC	=	$(shell find exercises -name "*.c")
+TEST_SRC	                           =	$(shell find tests -name "*.c")
 OBJ	=	$(SRC:.c=.o)
-COV	=	./*.gcda ./*.gcno
+TEST_OBJ	=	$(TEST_SRC:.c=.o)
+COV		                           	                           =	 	                           ./*.gcda ./*.gcno
 
-NAME	=	superlib.a
-
-TESTNAME=	SUPERtest.bin
-TESTFILE=	supertests.c
-CRITOPATH=	../../criterion/
+NAME	                           	                           	                           	=	superlib.a
+TEST_FILE_NAME		                           	                           	                           =tests.out
 
 all:	$(NAME)
 
 $(NAME):	$(OBJ)
-	@gcc -c $(SRC) -g3
-	@echo "Library compiled successfully"
+	ar rc $(NAME) $(OBJ)
+	echo "Library compiled successfully"
 
 clean:
-	@rm -f $(OBJ)
-	@echo "Cleaned .o"
+	rm -f $(OBJ)
+	echo "Cleaned .o"
 
 fclean: clean
-	@rm -f $(NAME)
-	@echo "Cleaned '$(NAME)'"
-	@rm -f $(TESTNAME) $(COV)
-	@echo "Cleaned '$(TESTNAME)' binary & residual files"
+	rm -f $(NAME)
+	echo "Cleaned '$(NAME)'"
+	rm -f $(TEST_FILE_NAME)
+	rm -f $(TEST_OBJ)
+	rm -rf *.gcno *.gcda
+	echo "Cleaned '$(TEST_FILE_NAME)' binary & residual files"
 
 re:	fclean all
 
-test:
-	@gcc -fprofile-arcs -ftest-coverage -o $(TESTNAME) $(TESTFILE) $(SRC) -g3 -I$(CRITOPATH)include -L$(CRITOPATH)lib -lcriterion -lm
+test: $(TEST_OBJ)
+	gcc -fprofile-arcs -ftest-coverage -o $(TEST_FILE_NAME) $(TEST_OBJ) $(SRC) -lcriterion
 
 run:	fclean test
-	@./$(TESTNAME) --verbose
+	./$(TEST_FILE_NAME) --verbose
 
 runc: test
-	@gcovr --exclude */tests.c --exclude-unreachable-branches --sort-percentage --print-summary
+	gcovr -e tests
+	gcovr -e tests -bu
 
 norm:
-	@./csc.sh exercises . 
+	./csc.sh exercises . 
 
 .PHONY: all clean fclean re test run runc norm

@@ -17,3 +17,5 @@
 *.out
 *.err
 00_sample
+
+superlib.a
