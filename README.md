@@ -23,7 +23,6 @@ The final Makefile, located in `/`, executes (and if they all pass, verifies) al
 - A terminal (Bash, Zsh, etc.)
 - A brain (optional)
 
-A [static Criterion install](https://github.com/Snaipe/Criterion) is located in `/criterion/`.  
 **Please open an issue if it results in the impossibility to compile/run the tests.**  
 Criterion tests for each exercise are run with the command `make run`.  
 
